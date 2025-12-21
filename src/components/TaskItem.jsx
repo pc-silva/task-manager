@@ -24,7 +24,9 @@ export function TaskItem({ task }) {
             className="opacity-0 cursor-pointer absolute w-full h-full"
           />
           {task.status === "done" && <CheckIcon />}
-          {task.status === "in_progress" && <LoaderIcon />}
+          {task.status === "in_progress" && (
+            <LoaderIcon className="animate-spin" />
+          )}
         </label>
         <p>{task.tittle}</p>
       </div>
