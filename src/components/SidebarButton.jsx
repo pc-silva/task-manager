@@ -1,6 +1,5 @@
 export function SidebarButton({ children, variant = "not_selected" }) {
   function getVariantOfTaskClass() {
-    if (variant === "not_selected") return "text-[#35383E]";
     if (variant === "selected") return "bg-[#E6F7F8] text-[#00ADB5]";
   }
 
