@@ -1,6 +1,10 @@
 import AddIcon from "../assets/icons/add.svg?react";
+import CloudSunIcon from "../assets/icons/cloud-sun.svg?react";
+import MoonIcon from "../assets/icons/moon.svg?react";
+import SunIcon from "../assets/icons/sun.svg?react";
 import TrashIcon from "../assets/icons/trash.svg?react";
 import { Button } from "./Button";
+import { TaskSeparator } from "./TaskSeparator";
 
 export function Task() {
   return (
@@ -19,6 +23,29 @@ export function Task() {
             Nova tarefa
             <AddIcon />
           </Button>
+        </div>
+      </div>
+
+      <div className="bg-white p-6 rounded-lg">
+        <div className="space-y-3">
+          <TaskSeparator>
+            <SunIcon />
+            Manhã
+          </TaskSeparator>
+        </div>
+
+        <div className="space-y-3 my-6">
+          <TaskSeparator>
+            <CloudSunIcon />
+            Tarde
+          </TaskSeparator>
+        </div>
+
+        <div className="space-y-3">
+          <TaskSeparator>
+            <MoonIcon />
+            Noite
+          </TaskSeparator>
         </div>
       </div>
     </div>
