@@ -7,7 +7,7 @@ export function SidebarButton({ children, variant = "not_selected" }) {
   return (
     <a
       href="#"
-      className={`px-6 py-3 flex gap-2 items-center rounded-[0.625rem] ${getVariantOfTaskClass()}`}
+      className={`px-6 py-3 flex gap-2 text-sm nunito-semibold items-center rounded-[0.625rem] ${getVariantOfTaskClass()}`}
     >
       {children}
     </a>
