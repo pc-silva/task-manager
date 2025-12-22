@@ -4,7 +4,7 @@ import LoaderIcon from "../assets/icons/loader.svg?react";
 import TrashIcon from "../assets/icons/trash.svg?react";
 import { Button } from "./Button";
 
-export function TaskItem({ task, handleTaskStatusButton }) {
+export function TaskItem({ task, handleStatusButton, handleDeleteButton }) {
   function getStatusTaskItem() {
     if (task.status === "done") return "bg-[#00ADB5]/10 text-[#002C2E]";
     if (task.status === "in_progress") return "bg-[#FFAA04]/10 text-[#574000]";
@@ -22,7 +22,7 @@ export function TaskItem({ task, handleTaskStatusButton }) {
             type="checkbox"
             checked={task.status === "done"}
             className="opacity-0 cursor-pointer absolute w-full h-full"
-            onChange={() => handleTaskStatusButton({ task })}
+            onChange={() => handleStatusButton({ task })}
           />
           {task.status === "done" && <CheckIcon />}
           {task.status === "in_progress" && (
@@ -33,7 +33,7 @@ export function TaskItem({ task, handleTaskStatusButton }) {
       </div>
 
       <div className="flex items-center gap-2">
-        <Button>
+        <Button onClick={() => handleDeleteButton({ task })}>
           <TrashIcon />
         </Button>
         <a href="#">

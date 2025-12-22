@@ -35,6 +35,15 @@ export function Task() {
     setTasks(newTask);
   }
 
+  function handleTaskDeleteButton(taskId) {
+    const newTask = tasks.filter((task) => {
+      if (task.id !== taskId) {
+        return task;
+      }
+    });
+    setTasks(newTask);
+  }
+
   return (
     <div className="px-8.5 pt-17.5 space-y-6 bg-[#F4F4F5] w-full">
       <div className="flex items-end justify-between font-semibold">
@@ -65,7 +74,10 @@ export function Task() {
             <TaskItem
               key={task.id}
               task={task}
-              handleTaskStatusButton={() => handleTaskStatusButton(task.id)}
+              handleStatusButton={() => handleTaskStatusButton(task.id)}
+              handleDeleteButton={() => {
+                handleTaskDeleteButton(task.id);
+              }}
             />
           ))}
         </div>
@@ -81,6 +93,9 @@ export function Task() {
               key={task.id}
               task={task}
               handleTaskStatusButton={() => handleTaskStatusButton(task.id)}
+              handleDeleteButton={() => {
+                handleTaskDeleteButton(task.id);
+              }}
             />
           ))}
         </div>
@@ -96,6 +111,9 @@ export function Task() {
               key={task.id}
               task={task}
               handleTaskStatusButton={() => handleTaskStatusButton(task.id)}
+              handleDeleteButton={() => {
+                handleTaskDeleteButton(task.id);
+              }}
             />
           ))}
         </div>
