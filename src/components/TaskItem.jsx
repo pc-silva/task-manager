@@ -4,7 +4,7 @@ import LoaderIcon from "../assets/icons/loader.svg?react";
 import TrashIcon from "../assets/icons/trash.svg?react";
 import { Button } from "./Button";
 
-export function TaskItem({ task }) {
+export function TaskItem({ task, handleTaskStatusButton }) {
   function getStatusTaskItem() {
     if (task.status === "done") return "bg-[#00ADB5]/10 text-[#002C2E]";
     if (task.status === "in_progress") return "bg-[#FFAA04]/10 text-[#574000]";
@@ -22,6 +22,7 @@ export function TaskItem({ task }) {
             type="checkbox"
             checked={task.status === "done"}
             className="opacity-0 cursor-pointer absolute w-full h-full"
+            onChange={() => handleTaskStatusButton({ task })}
           />
           {task.status === "done" && <CheckIcon />}
           {task.status === "in_progress" && (

@@ -10,11 +10,30 @@ import { TaskItem } from "./TaskItem";
 import { TaskSeparator } from "./TaskSeparator";
 
 export function Task() {
-  const [tasks] = useState(TASKS);
+  const [tasks, setTasks] = useState(TASKS);
 
   const morningTask = tasks.filter((task) => task.time === "morning");
   const afternoonTask = tasks.filter((task) => task.time === "afternoon");
   const eveningTask = tasks.filter((task) => task.time === "evening");
+
+  function handleTaskStatusButton(taskId) {
+    const newTask = tasks.map((task) => {
+      if (task.id !== taskId) {
+        return task;
+      }
+      if (task.status === "not_started") {
+        return { ...task, status: "in_progress" };
+      }
+      if (task.status === "in_progress") {
+        return { ...task, status: "done" };
+      }
+      if (task.status === "done") {
+        return { ...task, status: "not_started" };
+      }
+      return { ...task };
+    });
+    setTasks(newTask);
+  }
 
   return (
     <div className="px-8.5 pt-17.5 space-y-6 bg-[#F4F4F5] w-full">
@@ -43,7 +62,11 @@ export function Task() {
           </TaskSeparator>
 
           {morningTask.map((task) => (
-            <TaskItem key={task.id} task={task} />
+            <TaskItem
+              key={task.id}
+              task={task}
+              handleTaskStatusButton={() => handleTaskStatusButton(task.id)}
+            />
           ))}
         </div>
 
@@ -54,7 +77,11 @@ export function Task() {
           </TaskSeparator>
 
           {afternoonTask.map((task) => (
-            <TaskItem key={task.id} task={task} />
+            <TaskItem
+              key={task.id}
+              task={task}
+              handleTaskStatusButton={() => handleTaskStatusButton(task.id)}
+            />
           ))}
         </div>
 
@@ -65,7 +92,11 @@ export function Task() {
           </TaskSeparator>
 
           {eveningTask.map((task) => (
-            <TaskItem key={task.id} task={task} />
+            <TaskItem
+              key={task.id}
+              task={task}
+              handleTaskStatusButton={() => handleTaskStatusButton(task.id)}
+            />
           ))}
         </div>
       </div>
