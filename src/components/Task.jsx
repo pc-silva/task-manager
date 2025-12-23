@@ -6,11 +6,13 @@ import SunIcon from "../assets/icons/sun.svg?react";
 import TrashIcon from "../assets/icons/trash.svg?react";
 import { TASKS } from "../constants/TASKS";
 import { Button } from "./Button";
+import { TaskDialog } from "./TaskDialog";
 import { TaskItem } from "./TaskItem";
 import { TaskSeparator } from "./TaskSeparator";
 
 export function Task() {
   const [tasks, setTasks] = useState(TASKS);
+  const [addTaskDialogIsOpen, setAddTaskDialogIsOpen] = useState(false);
 
   const morningTask = tasks.filter((task) => task.time === "morning");
   const afternoonTask = tasks.filter((task) => task.time === "afternoon");
@@ -52,14 +54,18 @@ export function Task() {
           <h1 className="text-xl ">Minhas Tarefas</h1>
         </div>
         <div className="flex gap-2">
-          <Button>
+          <Button variant="ghost">
             Limpar tarefas
             <TrashIcon />
           </Button>
-          <Button variant="primary">
+          <Button onClick={() => setAddTaskDialogIsOpen(true)}>
             Nova tarefa
             <AddIcon />
           </Button>
+          <TaskDialog
+            isOpen={addTaskDialogIsOpen}
+            handleClose={() => setAddTaskDialogIsOpen(false)}
+          />
         </div>
       </div>
 
@@ -92,7 +98,7 @@ export function Task() {
             <TaskItem
               key={task.id}
               task={task}
-              handleTaskStatusButton={() => handleTaskStatusButton(task.id)}
+              handleStatusButton={() => handleTaskStatusButton(task.id)}
               handleDeleteButton={() => {
                 handleTaskDeleteButton(task.id);
               }}
@@ -110,7 +116,7 @@ export function Task() {
             <TaskItem
               key={task.id}
               task={task}
-              handleTaskStatusButton={() => handleTaskStatusButton(task.id)}
+              handleStatusButton={() => handleTaskStatusButton(task.id)}
               handleDeleteButton={() => {
                 handleTaskDeleteButton(task.id);
               }}

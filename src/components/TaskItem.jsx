@@ -33,7 +33,7 @@ export function TaskItem({ task, handleStatusButton, handleDeleteButton }) {
       </div>
 
       <div className="flex items-center gap-2">
-        <Button onClick={() => handleDeleteButton({ task })}>
+        <Button variant="ghost" onClick={() => handleDeleteButton({ task })}>
           <TrashIcon />
         </Button>
         <a href="#">
