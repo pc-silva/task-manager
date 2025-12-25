@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "sonner";
 import AddIcon from "../assets/icons/add.svg?react";
 import CloudSunIcon from "../assets/icons/cloud-sun.svg?react";
 import MoonIcon from "../assets/icons/moon.svg?react";
@@ -24,12 +25,15 @@ export function Task() {
         return task;
       }
       if (task.status === "not_started") {
+        toast.success("Tarefa em progresso!");
         return { ...task, status: "in_progress" };
       }
       if (task.status === "in_progress") {
+        toast.success("Tarefa concluída!");
         return { ...task, status: "done" };
       }
       if (task.status === "done") {
+        toast.success("Aguardando iniciar tarefa!");
         return { ...task, status: "not_started" };
       }
       return { ...task };
@@ -40,6 +44,7 @@ export function Task() {
   function handleTaskDeleteButton(taskId) {
     const newTask = tasks.filter((task) => {
       if (task.id !== taskId) {
+        toast.success("Tarefa deletada!");
         return task;
       }
     });
