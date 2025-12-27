@@ -51,6 +51,11 @@ export function Task() {
     setTasks(newTask);
   }
 
+  function handleAddTaskSubmit(task) {
+    setTasks([...tasks, task]);
+    toast.success("Tarefa adicionada com sucesso!");
+  }
+
   return (
     <div className="px-8.5 pt-17.5 space-y-6 bg-[#F4F4F5] w-full">
       <div className="flex items-end justify-between font-semibold">
@@ -70,6 +75,7 @@ export function Task() {
           <TaskDialog
             isOpen={addTaskDialogIsOpen}
             handleClose={() => setAddTaskDialogIsOpen(false)}
+            handleSubmit={handleAddTaskSubmit}
           />
         </div>
       </div>

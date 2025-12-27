@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { CSSTransition } from "react-transition-group";
 import { Button } from "./Button";
@@ -6,8 +6,27 @@ import { Input } from "./Input";
 import "./task-dialog.css";
 import { TaskSelect } from "./TaskSelect";
 
-export function TaskDialog({ isOpen, handleClose }) {
+export function TaskDialog({ isOpen, handleClose, handleSubmit }) {
+  const [tittle, setTittle] = useState("");
+  const [time, setTime] = useState("morning");
+  const [description, setDescription] = useState("");
+
   const nodeRef = useRef();
+
+  function saveTask() {
+    if (tittle.trim() || time.trim() || description.trim()) {
+      return alert("Os campos título, horário e descrição são obrigatórios!");
+    }
+    handleSubmit({
+      id: Math.random(),
+      tittle,
+      description,
+      time,
+      status: "not_started",
+    });
+    handleClose(false);
+  }
+
   return (
     <CSSTransition
       in={isOpen}
@@ -30,11 +49,24 @@ export function TaskDialog({ isOpen, handleClose }) {
                 </span>
               </div>
               <div className="font-inter space-y-4">
-                <Input label={"Título"} placeholder="Título da tarefa" />
+                <Input
+                  label={"Título"}
+                  placeholder="Título da tarefa"
+                  value={tittle}
+                  onChange={(event) => setTittle(event.target.value)}
+                />
 
-                <TaskSelect />
+                <TaskSelect
+                  value={time}
+                  onChange={(event) => setTime(event.target.value)}
+                />
 
-                <Input label={"Descrição"} placeholder="Descreva a tarefa" />
+                <Input
+                  label={"Descrição"}
+                  placeholder="Descreva a tarefa"
+                  value={description}
+                  onChange={(event) => setDescription(event.target.value)}
+                />
                 <div className="flex gap-3">
                   <Button
                     size={"large"}
@@ -43,7 +75,14 @@ export function TaskDialog({ isOpen, handleClose }) {
                   >
                     Cancelar
                   </Button>
-                  <Button size={"large"}>Salvar</Button>
+                  <Button
+                    size={"large"}
+                    onClick={() => {
+                      saveTask();
+                    }}
+                  >
+                    Salvar
+                  </Button>
                 </div>
               </div>
             </div>
