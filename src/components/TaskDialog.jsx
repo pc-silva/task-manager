@@ -1,6 +1,8 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { CSSTransition } from "react-transition-group";
+import { toast } from "sonner";
+import { v4 } from "uuid";
 import { Button } from "./Button";
 import { Input } from "./Input";
 import "./task-dialog.css";
@@ -13,17 +15,26 @@ export function TaskDialog({ isOpen, handleClose, handleSubmit }) {
 
   const nodeRef = useRef();
 
+  useEffect(() => {
+    if (!isOpen) {
+      setTittle("");
+      setTime("morning");
+      setDescription("");
+    }
+  }, [isOpen]);
+
   function saveTask() {
-    if (tittle.trim() || time.trim() || description.trim()) {
-      return alert("Os campos título, horário e descrição são obrigatórios!");
+    if (!tittle.trim() || !time.trim() || !description.trim()) {
+      return alert("Os campos são obrigatórios!");
     }
     handleSubmit({
-      id: Math.random(),
+      id: v4(),
       tittle,
       description,
       time,
       status: "not_started",
     });
+    toast.success("Tarefa cadastrada com sucesso!");
     handleClose(false);
   }
 
